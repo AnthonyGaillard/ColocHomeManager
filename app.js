@@ -12,5 +12,11 @@ app
 
 sequelize.initDb()
 
+require('./src/routes/findAllTasks')(app)
+require('./src/routes/findTaskByPk')(app)
+require('./src/routes/createTask')(app)
+require('./src/routes/updateTask')(app)
+require('./src/routes/deleteTask')(app)
+
 
 app.listen(port, () => console.log(`Notre application Node est démarée sur : http://localhost:${port}`))
