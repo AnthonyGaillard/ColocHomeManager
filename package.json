@@ -4,7 +4,7 @@
   "description": "une appli perso pour gérer mon emplois du temps",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
