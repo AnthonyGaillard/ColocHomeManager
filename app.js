@@ -18,5 +18,9 @@ require('./src/routes/createTask')(app)
 require('./src/routes/updateTask')(app)
 require('./src/routes/deleteTask')(app)
 
+app.use(({res}) => {
+    const message = 'Impossible de trouver la ressource demandée! Essayez un autre URL.'
+    res.status(404).json({message})
+})
 
 app.listen(port, () => console.log(`Notre application Node est démarée sur : http://localhost:${port}`))
