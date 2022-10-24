@@ -1,7 +1,8 @@
 const { Task } = require('../db/sequelize')
+const auth = require('../auth/auth')
   
 module.exports = (app) => {
-  app.put('/api/tasks/:id', (req, res) => {
+  app.put('/api/tasks/:id', auth, (req, res) => {
     const id = req.params.id
     return Task.update(req.body, {
       where: { id: id }
@@ -17,8 +18,14 @@ module.exports = (app) => {
       })
     })
     .catch(error => {
-        const message = "La tâche n'a pas pu être modifiée. Réessayez dans quelques instants."
-        res.status(500).json({ message, data: error })
-      })
+      if(error instanceof ValidationError){
+        return res.status(400).json({ message: error.message, data: error })
+      }
+      if(error instanceof UniqueConstraintError) {
+        return res.status(400).json({ message: error.message, data: error})
+      }
+      const message = "La tâche n'a pas pu être modifiée. Réessayez dans quelques instants."
+      res.status(500).json({ message, data: error })
+    })
   })
 }
