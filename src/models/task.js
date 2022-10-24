@@ -7,11 +7,14 @@ module.exports = (sequelize, DataTypes) => {
           },
           name: {
             type: DataTypes.STRING,
-            allowNull: false
-          },
-          state: {
-            type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: {
+              msg: 'Ce nom existe déjà.'
+            }, 
+            validate:{
+              notEmpty: { msg: 'Le nom ne peut pas être vide.'},
+              notNull: { msg: 'Le nom est une propriété requise.'}
+            }
           },
           next: {
             type: DataTypes.STRING,

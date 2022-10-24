@@ -16,7 +16,6 @@ const initDb = () => {
   return sequelize.sync({force: true}).then(_ => {
     Task.create({
       name : "test",
-      state: "inactive",
       next: "none"
     }).then(task => console.log(task.toJSON()))
 
