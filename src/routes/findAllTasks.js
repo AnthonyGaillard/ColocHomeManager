@@ -13,7 +13,7 @@ module.exports = (app) => {
         return res.status(400).json({ message })
       }  
 
-      return Pokemon.findAndCountAll({ 
+      return Task.findAndCountAll({ 
         where: {
           name : {                       // 'name' est la propriété du modèle Task
             [Op.like]: `%${name}%`       // 'name' est le critère de recherche
