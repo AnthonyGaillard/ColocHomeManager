@@ -1,4 +1,6 @@
+const { ValidationError } = require('sequelize')
 const { Task } = require('../db/sequelize')
+const auth = require('../auth/auth')
   
 module.exports = (app) => {
   app.post('/api/tasks', (req, res) => {
@@ -8,7 +10,13 @@ module.exports = (app) => {
         res.json({ message, data: task })
       })
       .catch(error => {
-        const message = "La tâche n'a pas pu être crée. Réessayez dans quelques instants."
+        if(error instanceof ValidationError){
+          return res.status(400).json({ message: error.message, data: error })
+        }
+        if(error instanceof UniqueConstraintError) {
+          return res.status(400).json({ message: error.message, data: error})
+        }
+        const message = "La Tâche n'a pas pu être ajoutée. Réessayez dans quelques instants."
         res.status(500).json({ message, data: error })
       })
   })
