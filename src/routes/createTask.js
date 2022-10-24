@@ -3,7 +3,7 @@ const { Task } = require('../db/sequelize')
 const auth = require('../auth/auth')
   
 module.exports = (app) => {
-  app.post('/api/tasks', (req, res) => {
+  app.post('/api/tasks', auth, (req, res) => {
     Task.create(req.body)
       .then(task => {
         const message = `La tâche ${req.body.name} a bien été crée.`
