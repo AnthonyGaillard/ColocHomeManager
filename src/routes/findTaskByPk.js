@@ -1,7 +1,8 @@
 const { Task } = require('../db/sequelize')
+const auth = require('../auth/auth')
   
 module.exports = (app) => {
-  app.get('/api/tasks/:id', (req, res) => {
+  app.get('/api/tasks/:id', auth, (req, res) => {
     Task.findByPk(req.params.id)
       .then(task => {
         if (task === null) {
