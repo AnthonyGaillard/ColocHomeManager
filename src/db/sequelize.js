@@ -13,20 +13,20 @@ const Task = TaskModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
 
 const initDb = () => {
-    return sequelize.sync({force: true}).then(_ => {
-        Task.create({
-            name : "test",
-            state: "inactive",
-            next: "none"
-        }).then(task => console.log(task.toJSON()))
-    })
-    
+  return sequelize.sync({force: true}).then(_ => {
+    Task.create({
+      name : "test",
+      state: "inactive",
+      next: "none"
+    }).then(task => console.log(task.toJSON()))
+
     bcrypt.hash('coloc512',10)
     .then(hash => User.create({ username: 'antho', password: hash }))
-    .then(user => console.log(iser.toJSON()))
+    .then(user => console.log(user.toJSON()))
 
     console.log('La base de donnée a bien été initialisée !')
-  }
+  })   
+}
 
   
     
